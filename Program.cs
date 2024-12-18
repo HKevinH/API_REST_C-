@@ -12,7 +12,12 @@ Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Development");
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddControllers();
-builder.Services.AddSingleton<IWeatherService, WeatherService>();
+
+// Depedencies Inyect
+builder.Services.AddScoped<IWeatherService, WeatherService>();
+// builder.Services.AddSingleton<IWeatherService, WeatherService>();
+// End
+
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -51,7 +56,7 @@ app.UseAuthorization();
 //
 // app.UseWelcomePage();
 
-app.UseTimeMiddleware();
+// app.UseTimeMiddleware();
 // 
 app.MapControllers();
 app.UseHttpsRedirection();
