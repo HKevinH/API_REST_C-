@@ -16,7 +16,7 @@ public class WeatherService : IWeatherService
 
     public WeatherModel GetWeatherByCity(string city)
     {
-        return _weatherData.FirstOrDefault(w => w.City.Equals(city, StringComparison.OrdinalIgnoreCase)) ?? new WeatherModel();
+        return _weatherData.FirstOrDefault(w => w.City?.Equals(city, StringComparison.OrdinalIgnoreCase) == true) ?? new WeatherModel();
     }
 
 

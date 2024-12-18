@@ -14,7 +14,6 @@ public class AuthController : ControllerBase
 {
     // private readonly 
 
-
     [HttpPost("login")]
     public IActionResult Login([FromBody] LoginRequest request)
     {
@@ -53,6 +52,6 @@ public class AuthController : ControllerBase
 
 public class LoginRequest
 {
-    public string Username { get; set; }
-    public string Password { get; set; }
+    public string? Username { get; set; }
+    public string? Password { get; set; }
 }
