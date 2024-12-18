@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -48,6 +49,46 @@ public class AuthController : ControllerBase
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
+
+
+    [HttpGet("secure-data")]
+    [Authorize]
+
+    public IActionResult GetSecureData()
+    {
+        //This Claims JWT Valid
+        return Ok(new { message = "Route Protect" });
+    }
+
+    [HttpGet("admin-data")]
+    [Authorize(Roles = "admin")]
+    public IActionResult GetAdminData()
+    {
+        return Ok(new { secretIndo = "Data For Admins" });
+    }
+
+
+    [HttpGet("profile")]
+    [Authorize]
+    public IActionResult GetUserInfo()
+    {
+        var username = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub)?.Value;
+        return Ok(new { username = username, message = "Info" });
+    }
+
+
+    [HttpPost("refresh-token")]
+    public IActionResult RefreshToken([FromBody] RefreshRequest refreshRequest)
+    {
+
+        var newToken = GenerateJwtToken("usernew");
+        return Ok(new { token = newToken });
+    }
+}
+
+public class RefreshRequest
+{
+    public string? RefreshToken { get; set; }
 }
 
 public class LoginRequest

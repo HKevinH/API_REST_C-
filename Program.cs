@@ -23,9 +23,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = true, // Valida la audiencia
             ValidateLifetime = true, // Valida la expiración del token
             ValidateIssuerSigningKey = true, // Valida la firma del token
-            ValidIssuer = "tu-emisor", // Emisor válido
-            ValidAudience = "tu-audiencia", // Audiencia válida
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("tu-clave-secreta-muy-larga")) // Clave secreta para firmar el token
+            ValidIssuer = "emisor-id", // Emisor válido
+            ValidAudience = "audiencia-id", // Audiencia válida
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("S3cur3K3yTh@tIsAtLeast32CharsLong!")) // Clave secreta para firmar el token
         };
     });
 
