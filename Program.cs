@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -18,6 +20,12 @@ builder.Services.AddScoped<IWeatherService, WeatherService>();
 // builder.Services.AddSingleton<IWeatherService, WeatherService>();
 // End
 
+builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseMySql(
+    builder.Configuration.GetConnectionString("DefaultConection"),
+    new MySqlServerVersion(new Version(8, 0, 36))
+));
+
+builder.Services.AddControllersWithViews();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -34,6 +42,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+
 builder.Services.AddAuthorization();
 
 // Need Swagger
@@ -41,6 +50,19 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
+app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
