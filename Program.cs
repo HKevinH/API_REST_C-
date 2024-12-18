@@ -49,7 +49,10 @@ if (app.Environment.IsDevelopment())
 app.UseAuthentication();
 app.UseAuthorization();
 //
+// app.UseWelcomePage();
 
+app.UseTimeMiddleware();
+// 
 app.MapControllers();
 app.UseHttpsRedirection();
 app.Run();
