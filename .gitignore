@@ -31,3 +31,8 @@ bin/
 build/
 out/
 bin/
+./obj/
+obj/
+obj/Debug/net9.0/apphost.exe
+obj/Debug/net9.0/practice.assets.cache
+obj/Debug/net9.0/practice.csproj.FileListAbsolute.txt
