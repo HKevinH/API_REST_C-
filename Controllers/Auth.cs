@@ -27,7 +27,7 @@ public class AuthController : ControllerBase
         return Unauthorized();
     }
 
-
+    [HttpPost("generate-token")]
     public String GenerateJwtToken(string username)
     {
         var claims = new[] {
@@ -35,7 +35,7 @@ public class AuthController : ControllerBase
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("key-secret"));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("S3cur3K3yTh@tIsAtLeast32CharsLong!"));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
 

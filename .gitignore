@@ -26,5 +26,8 @@ Thumbs.db
 
 # Build directories
 dist/
+bin/
+./bin/
 build/
 out/
+bin/
